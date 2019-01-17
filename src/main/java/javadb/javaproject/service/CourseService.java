@@ -13,10 +13,9 @@ import org.springframework.stereotype.Service;
 public class CourseService{ 
 
     @Autowired
-    CourseRepository CourseRepository;
+    CourseRepository cRepository;
 
     public List<Course> getAllCourses(){
-        return CourseRepository.findAll();
+        return cRepository.findAll();
     }
-    
 }

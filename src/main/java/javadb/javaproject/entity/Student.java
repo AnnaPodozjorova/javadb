@@ -1,10 +1,12 @@
 package javadb.javaproject.entity;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
@@ -18,18 +20,21 @@ public class Student {
     private String firstname;
     private String lastname;
     private String eriala;
-    @OneToMany(mappedBy = "student")
-    private List<CourseRegistration> registrations;
+    @ManyToMany
+    @JoinTable(
+     name = "course_student", 
+     joinColumns = @JoinColumn(name = "student_id"), 
+     inverseJoinColumns = @JoinColumn(name = "course_id"))
+     private Set<Course> Courses;
 
     public Student(){
     }
 
-    public Student(long id, String firstname, String lastname, String eriala, List<CourseRegistration> registrations) {
+    public Student(long id, String firstname, String lastname, String eriala) {
         this.id = id;
          this.eriala = eriala;
         this.firstname = firstname;
         this.lastname = lastname;
-        this.registrations = registrations;
     }
 
     public long getId() {
@@ -64,12 +69,12 @@ public class Student {
         this.eriala = eriala;
     }
 
-    public List<CourseRegistration> getRegistrations() {
-        return registrations;
+    public Set<Course> getCourses() {
+        return Courses;
     }
 
-    public void setRegistrations(List<CourseRegistration> registrations) {
-        this.registrations = registrations;
+    public void setCourses(Set<Course> Courses) {
+        this.Courses = Courses;
     }
 
     @Override

@@ -1,11 +1,10 @@
 package javadb.javaproject.entity;
-
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
@@ -16,19 +15,20 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable=false)
+    private String code;
     private String title;
     private String cdescription;
-    @OneToMany(mappedBy = "course")
-    private List<CourseRegistration> registrations;
+    @ManyToMany (mappedBy = "Courses")
+    private Set<Student> students;
 
     public Course() {
     }
 
-    public Course(Long id, String title, String description, List<CourseRegistration> registrations) {
+    public Course(Long id, String code, String title, String description) {
         this.id = id;
         this.title = title;
         this.cdescription = description;
-        this.registrations=registrations;
+        this.code=code;
     }
 
     public Long getId() {
@@ -47,6 +47,15 @@ public class Course {
         this.title = title;
     }
 
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+
     public String getDescription() {
         return cdescription;
     }
@@ -55,12 +64,12 @@ public class Course {
         this.cdescription = description;
     }
 
-    public List<CourseRegistration> getRegistrations() {
-        return registrations;
+    public Set<Student> getStudents() {
+        return students;
     }
 
-    public void setRegistrations(List<CourseRegistration> registrations) {
-        this.registrations = registrations;
+    public void setStudents(Set<Student> students) {
+        this.students = students;
     }
 
     public String toString() {
@@ -68,6 +77,8 @@ public class Course {
         sb.append(id);
         sb.append(", Title: ");
         sb.append(title);
+        sb.append(", Code: ");
+        sb.append(code);
         sb.append(" Description: ");
         sb.append(cdescription.toString());
         return sb.toString();
