@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javadb.javaproject.entity.Course;
 import javadb.javaproject.service.CourseService;
+import javadb.javaproject.service.StudentService;
 
 
 /**
@@ -19,10 +20,12 @@ import javadb.javaproject.service.CourseService;
  */
 
 @Controller
-public class MainController {
+public class HomeController {
 
     @Autowired 
     private CourseService courseService;
+    @Autowired 
+    private StudentService studentService;
     
     @RequestMapping(value = "/")
         public String getCourses(Model model) {
@@ -30,7 +33,7 @@ public class MainController {
         return "index";
         }
  
-        @ResponseBody
+       @ResponseBody
         @RequestMapping(value = "/result.html?name={id}", method = RequestMethod.POST)      
         public String getCourse(@PathVariable("id") String code,Model model) {
             for(Course c:courseService.getAllCourses()) {
@@ -40,7 +43,24 @@ public class MainController {
         return "result";
         }  
 
+        /*
+        @RequestMapping(value = "/result.html?name={id}, method = RequestMethod.POST")      
+        public String getCourseByID(@PathVariable("id") short id,Model model) {
+             model.addAttribute("course", courseService.getCourseByID(id));
+             return "result";
 
+            }*/
+       
+       /*	@RequestMapping(value = "/result.html?name={id}/")
+        public String getStudents(@PathVariable("id") String id,Model model) {
+            List<Student> students=new ArrayList<Student>();
+            for(Student s:studentService.getAllStudents()) {
+                if (s.getCourses().contains(id))
+                    students.add(s);
+            }
+        model.addAttribute("students", students);
+        return "result";
+        }*/
 
 
 }
