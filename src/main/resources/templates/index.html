@@ -25,8 +25,9 @@
 					<nav class="dr-menu">
 						<div class="dr-trigger"><span class="dr-icon dr-icon-menu"></span><a class="dr-label">Kursused</a></div>
 						<ul>
-								<th:block th:each="c : ${courses}">
-										<a  href=result.html?name=<span th:text="${c.getCode()}/"></span><span th:text="${c.getName()}"></span></a>>
+                                                    <th:block th:each="c : ${courses}">
+                                                        <p>1</p>
+							<a  href=result.html?name=<span th:text="${c.getCode()}/"></span><span th:text="${c.getName()}"></span></a>>
 						</th:block>
 						</ul>
 					</nav>

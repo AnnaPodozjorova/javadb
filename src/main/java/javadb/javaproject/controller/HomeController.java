@@ -1,6 +1,7 @@
 package javadb.javaproject.controller;
 
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javadb.javaproject.entity.Course;
+import javadb.javaproject.repository.CourseRepository;
 import javadb.javaproject.service.CourseService;
 import javadb.javaproject.service.StudentService;
 
@@ -24,13 +26,16 @@ public class HomeController {
 
     @Autowired 
     private CourseService courseService;
-    @Autowired 
-    private StudentService studentService;
+    @Autowired
+    private CourseRepository crep;
+
     
-    @RequestMapping(value = "/")
+   @RequestMapping(value = "/")
         public String getCourses(Model model) {
-        model.addAttribute("courses", courseService.getAllCourses());
-        return "index";
+            List<Course> list=courseService.getAllCourses();
+        //model.addAttribute("courses", courseService.getAllCourses());
+       // return "index11";
+        return list.get(0).getTitle();
         }
  
        @ResponseBody
